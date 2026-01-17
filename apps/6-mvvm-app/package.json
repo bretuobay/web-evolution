@@ -4,13 +4,13 @@
   "private": true,
   "description": "MVVM-inspired UI",
   "scripts": {
-    "build": "echo Building MVVM app",
-    "dev": "echo Starting MVVM dev server",
+    "build": "vite build",
+    "dev": "vite",
     "lint": "echo Linting MVVM app",
     "test": "echo Testing MVVM app"
   },
   "dependencies": {
-    "vue": "^3.4.2",
-    "@wees/design-system": "0.1.0"
+    "@wees/design-system": "0.1.0",
+    "vue": "^3.4.2"
   }
 }
