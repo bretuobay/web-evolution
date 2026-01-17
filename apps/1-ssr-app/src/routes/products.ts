@@ -9,7 +9,7 @@ import {
   getEditProductForm,
   updateProduct,
   deleteProduct,
-} from '../controllers/productController';
+} from '../controllers/productController.js';
 
 // We'll create a router object to define a set of related routes.
 const router = express.Router();

@@ -10,6 +10,7 @@ export default defineConfig({
   },
   server: {
     port: 3003,
+    strictPort: true,
     fs: {
       allow: ['..', '../../packages', '../node_modules'],
     },
