@@ -1,0 +1,266 @@
+/* 90s Web Style - Inspired by Windows 98 and early web design */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: #008080; /* Classic teal background */
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+/* Window container - looks like a desktop application window */
+.window {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 1px 1px 0 #000;
+}
+
+/* Title bar - the top of the window */
+.title-bar {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  padding: 3px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-bar-text {
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.title-bar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.title-bar-controls button {
+  width: 16px;
+  height: 14px;
+  padding: 0;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  font-size: 8px;
+}
+
+/* Main content area */
+.window-body {
+  padding: 10px;
+}
+
+/* Navigation */
+nav {
+  background: #c0c0c0;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+nav a {
+  color: #000080;
+  text-decoration: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Headers */
+h1, h2, h3 {
+  color: #000080;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 18px;
+  border-bottom: 2px groove #808080;
+  padding-bottom: 10px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+table.interactive th {
+  background: #000080;
+  color: white;
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #404080;
+}
+
+table.interactive td {
+  padding: 8px;
+  border: 1px solid #c0c0c0;
+}
+
+table.interactive tr:nth-child(even) {
+  background: #f0f0f0;
+}
+
+table.interactive tr:hover {
+  background: #e0e0ff;
+}
+
+/* Buttons and links */
+.button, button, input[type="submit"] {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 5px 15px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+}
+
+.button:active, button:active, input[type="submit"]:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #000080;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+.link-button:hover {
+  color: #0000ff;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  max-width: 400px;
+  padding: 5px;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  background: white;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Flash messages */
+.flash-success {
+  background: #90ee90;
+  border: 2px solid #228b22;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.flash-error {
+  background: #ffcccb;
+  border: 2px solid #cc0000;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 2px groove #808080;
+  text-align: center;
+  color: #808080;
+  font-size: 12px;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.pagination a, .pagination span {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 2px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  text-decoration: none;
+  color: black;
+}
+
+.pagination .current {
+  background: #000080;
+  color: white;
+}
+
+/* Add product link */
+.add-product-link {
+  margin-bottom: 15px;
+}
+
+/* Main content */
+.main-content {
+  min-height: 300px;
+}
+
+/* Product detail */
+.product-detail {
+  background: white;
+  padding: 15px;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.product-detail dt {
+  font-weight: bold;
+  color: #000080;
+}
+
+.product-detail dd {
+  margin: 0 0 10px 0;
+}
+
+/* Error text */
+.error-text {
+  color: #cc0000;
+  font-size: 12px;
+}
+
+input.error {
+  border-color: #cc0000;
+}

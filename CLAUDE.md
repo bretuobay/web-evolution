@@ -98,6 +98,23 @@ Each app implements the same inventory management system:
 | 5-nextjs-app | Hybrid SSR/CSR | Next.js App Router, Server Components |
 | 6-mvvm-app | MVVM | Two-way binding, ViewModels |
 
+## Port Assignments
+
+Each app runs on a dedicated port to avoid conflicts:
+
+| App | Port | URL |
+|-----|------|-----|
+| 1-ssr-app | 3001 | http://localhost:3001 |
+| 2-api-server | 3002 | http://localhost:3002 |
+| 3-jquery-app | 3003 | http://localhost:3003 |
+| 4-react-app | 3004 | http://localhost:3004 |
+| 5-nextjs-app | 3005 | http://localhost:3005 |
+| 6-mvvm-app | 3006 | http://localhost:3006 |
+| web (Turborepo) | 3007 | http://localhost:3007 |
+| docs (Turborepo) | 3008 | http://localhost:3008 |
+
+**Note**: Frontend apps (3-6) call the API server at `http://localhost:3002/api`
+
 ## Database
 
 All apps share a single SQLite database from the `packages/database` package:

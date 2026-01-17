@@ -1,118 +1,76 @@
 /**
  * inventory-table.js
  *
- * A custom jQuery plugin to display a sortable table of products.
- * The jQuery plugin pattern is a way to extend jQuery's functionality.
- * We add a new function to jQuery's prototype ($.fn) to make it available
- * on any jQuery object.
+ * A custom jQuery plugin for rendering and managing the inventory table.
+ * This demonstrates the plugin pattern that was central to jQuery development.
  */
+
 (function($) {
     'use strict';
 
-    // Attaching our plugin to the jQuery prototype.
-    // The name of the function here ('inventoryTable') is the name of our plugin.
     $.fn.inventoryTable = function(options) {
-        // 'this' refers to the jQuery object the plugin was called on.
-        // It's good practice to use .each() to support multiple elements.
+        var settings = $.extend({
+            products: [],
+            onDelete: function() {}
+        }, options);
+
+        var helpers = window.App.Helpers;
+
         return this.each(function() {
             var $container = $(this);
-            var settings = $.extend({
-                products: [],
-                onDelete: function() {}
-            }, options);
+            var products = settings.products;
+            var sortKey = 'name';
+            var sortAsc = true;
 
-            var currentSort = {
-                key: 'name',
-                order: 'asc'
-            };
-
-            /**
-             * Renders the entire table.
-             */
             function render() {
-                var sortedProducts = App.Helpers.sortData(settings.products, currentSort.key, currentSort.order);
+                var sorted = helpers.sortData(products, sortKey, sortAsc);
+                var html = '<table class="inventory-table">';
+                html += '<thead><tr>';
+                html += '<th data-sort="name">Name ' + getSortIndicator('name') + '</th>';
+                html += '<th data-sort="price">Price ' + getSortIndicator('price') + '</th>';
+                html += '<th data-sort="quantity">Qty ' + getSortIndicator('quantity') + '</th>';
+                html += '<th>Actions</th>';
+                html += '</tr></thead><tbody>';
 
-                var tableHtml = `
-                    <table>
-                        <thead>
-                            <tr>
-                                <th data-sort-key="name">Name</th>
-                                <th data-sort-key="type">Type</th>
-                                <th data-sort-key="manufacturer">Manufacturer</th>
-                                <th data-sort-key="price">Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${sortedProducts.map(function(product) {
-                                return `
-                                    <tr data-product-id="${product.id}">
-                                        <td>${product.name}</td>
-                                        <td>${product.type}</td>
-                                        <td>${product.manufacturer}</td>
-                                        <td>$${product.price.toFixed(2)}</td>
-                                        <td>
-                                            <a href="#/products/edit/${product.id}">Edit</a>
-                                            <button class="delete-btn" data-id="${product.id}">Delete</button>
-                                        </td>
-                                    </tr>
-                                `;
-                            }).join('')}
-                        </tbody>
-                    </table>
-                `;
-                $container.html(tableHtml);
-                updateSortHeaders();
+                sorted.forEach(function(product) {
+                    html += '<tr data-id="' + product.id + '">';
+                    html += '<td>' + helpers.escapeHtml(product.name) + '</td>';
+                    html += '<td>' + helpers.formatCurrency(product.price) + '</td>';
+                    html += '<td>' + product.quantity + '</td>';
+                    html += '<td>';
+                    html += '<a href="#/products/edit/' + product.id + '" class="btn-edit">Edit</a> ';
+                    html += '<button class="btn-delete" data-id="' + product.id + '">Delete</button>';
+                    html += '</td>';
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                $container.html(html);
+
+                // Bind events
+                $container.find('th[data-sort]').on('click', function() {
+                    var key = $(this).data('sort');
+                    if (sortKey === key) {
+                        sortAsc = !sortAsc;
+                    } else {
+                        sortKey = key;
+                        sortAsc = true;
+                    }
+                    render();
+                });
+
+                $container.find('.btn-delete').on('click', function() {
+                    var id = $(this).data('id');
+                    var $row = $(this).closest('tr');
+                    settings.onDelete(id, $row);
+                });
             }
 
-            /**
-             * Handles clicks on the table headers for sorting.
-             */
-            function handleHeaderClick(e) {
-                var newSortKey = $(e.target).data('sort-key');
-                if (!newSortKey) return;
-
-                if (newSortKey === currentSort.key) {
-                    currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
-                } else {
-                    currentSort.key = newSortKey;
-                    currentSort.order = 'asc';
-                }
-                render();
+            function getSortIndicator(key) {
+                if (sortKey !== key) return '';
+                return sortAsc ? '&#9650;' : '&#9660;';
             }
 
-            function updateSortHeaders() {
-                $container.find('th').removeClass('sort-asc sort-desc');
-                var $activeHeader = $container.find('th[data-sort-key="' + currentSort.key + '"]');
-                if (currentSort.order === 'asc') {
-                    $activeHeader.addClass('sort-asc');
-                } else {
-                    $activeHeader.addClass('sort-desc');
-                }
-            }
-
-
-            /**
-             * Handles clicks on the delete buttons.
-             */
-            function handleDeleteClick(e) {
-                var $target = $(e.target);
-                if ($target.hasClass('delete-btn')) {
-                    var productId = $target.data('id');
-                    var $row = $target.closest('tr');
-                    settings.onDelete(productId, $row);
-                }
-            }
-
-            // --- Event Listeners ---
-            // We use event delegation here by attaching the listener to the container.
-            // This is more efficient than attaching a listener to every single header or button,
-            // especially in large tables.
-            $container.on('click', 'th', handleHeaderClick);
-            $container.on('click', '.delete-btn', handleDeleteClick);
-
-
-            // Initial render of the table.
             render();
         });
     };

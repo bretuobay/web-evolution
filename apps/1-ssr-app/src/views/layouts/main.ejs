@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Evolution: SSR App</title>
+    <!-- The 90s.css stylesheet, served from our "public" directory -->
+    <link rel="stylesheet" href="/styles/90s.css">
+</head>
+<body>
+    <!-- The "window" class from 90s.css gives us that classic desktop app look -->
+    <div class="window">
+        <!-- The title-bar for our application window -->
+        <div class="title-bar">
+            <div class="title-bar-text">💾 Web Evolution - The Server-Side Rendered Era</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+
+        <!-- The main content area of our application -->
+        <div class="window-body">
+            <!-- Render the header partial. Partials are reusable snippets of EJS. -->
+            <%- include('../partials/header') %>
+
+            <%# This is where the page content is injected by express-ejs-layouts %>
+            <main class="main-content">
+                <%- body %>
+            </main>
+
+            <!-- Render the footer partial -->
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+</body>
+</html>

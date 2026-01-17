@@ -1,0 +1,23 @@
+<%# The main view for listing all categories. %>
+<%# This will be rendered by the `getAllCategories` controller function. %>
+
+<h1>Product Categories</h1>
+<p>Browse products by category.</p>
+
+<% if (categories && categories.length > 0) { %>
+    <ul class="tree-view">
+        <%# Loop through each category and create a link to its detail page. %>
+        <% categories.forEach(category => { %>
+            <li>
+                <!--
+                    A simple link to the category's detail page.
+                    The URL structure `/categories/:id` is a classic RESTful pattern,
+                    even in a fully server-rendered application.
+                -->
+                <a href="/categories/<%= category.id %>"><%= category.name %></a>
+            </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>No categories found.</p>
+<% } %>

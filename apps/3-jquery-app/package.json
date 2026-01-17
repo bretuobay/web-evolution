@@ -6,7 +6,7 @@
   "main": "src/js/app.js",
   "scripts": {
     "build": "vite build",
-    "dev": "vite --port 3002",
+    "dev": "vite --port 3003",
     "lint": "echo Linting jQuery app",
     "test": "echo Testing jQuery app"
   },

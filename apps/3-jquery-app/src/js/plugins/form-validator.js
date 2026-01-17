@@ -1,84 +1,65 @@
 /**
  * form-validator.js
  *
- * A custom jQuery plugin for basic form validation.
- * This demonstrates how jQuery can be used to encapsulate reusable UI logic.
+ * A custom jQuery plugin for form validation.
+ * jQuery plugins were the standard way to extend functionality in the mid-2000s.
  */
+
 (function($) {
     'use strict';
 
     $.fn.formValidator = function(options) {
+        var settings = $.extend({
+            onSubmit: function() {}
+        }, options);
+
         return this.each(function() {
             var $form = $(this);
-            var settings = $.extend({
-                onSubmit: function() {}
-            }, options);
 
-            /**
-             * The main submit handler for the form.
-             */
             $form.on('submit', function(e) {
-                e.preventDefault(); // Prevent the default form submission
+                e.preventDefault();
 
-                if (validate()) {
-                    settings.onSubmit(getFormData());
-                }
-            });
-
-            /**
-             * Validates all the required fields in the form.
-             * @returns {boolean} True if the form is valid, false otherwise.
-             */
-            function validate() {
                 var isValid = true;
-                clearErrors();
+                var formData = {};
 
-                // Find all fields with the 'required' attribute.
-                // This is a simple validation logic. A real-world plugin
-                // would support various validation rules (email, minlength, etc.).
+                // Clear previous errors
+                $form.find('.error-message').remove();
+                $form.find('.error').removeClass('error');
+
+                // Validate required fields
                 $form.find('[required]').each(function() {
                     var $field = $(this);
-                    if (!$field.val().trim()) {
+                    var value = $.trim($field.val());
+                    var name = $field.attr('name') || $field.attr('id');
+
+                    if (!value) {
                         isValid = false;
-                        showError($field, 'This field is required.');
+                        $field.addClass('error');
+                        $field.after('<span class="error-message">This field is required</span>');
+                    } else {
+                        formData[name] = value;
                     }
                 });
 
-                return isValid;
-            }
-
-            /**
-             * Displays an error message for a specific field.
-             */
-            function showError($field, message) {
-                var $errorMessage = $('<div class="error-message"></div>').text(message);
-                $field.after($errorMessage);
-                $field.addClass('is-invalid'); // For potential styling
-            }
-
-            /**
-             * Clears all previous error messages.
-             */
-            function clearErrors() {
-                $form.find('.error-message').remove();
-                $form.find('.is-invalid').removeClass('is-invalid');
-            }
-
-            /**
-             * Gathers the form data into a plain object.
-             * @returns {object} The form data as a key-value object.
-             */
-            function getFormData() {
-                var formData = {};
-                $form.find('input, select, textarea').each(function() {
+                // Validate number fields
+                $form.find('[type="number"]').each(function() {
                     var $field = $(this);
-                    var name = $field.attr('name');
-                    if (name) {
-                        formData[name] = $field.val();
+                    var value = $field.val();
+                    var name = $field.attr('name') || $field.attr('id');
+
+                    if (value && isNaN(parseFloat(value))) {
+                        isValid = false;
+                        $field.addClass('error');
+                        $field.after('<span class="error-message">Must be a valid number</span>');
+                    } else if (value) {
+                        formData[name] = parseFloat(value);
                     }
                 });
-                return formData;
-            }
+
+                if (isValid) {
+                    settings.onSubmit(formData);
+                }
+            });
         });
     };
 

@@ -9,7 +9,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    port: 3002,
+    port: 3003,
+    strictPort: true,
     fs: {
       allow: ['..', '../../packages', '../node_modules'],
     },
@@ -18,8 +19,5 @@ export default defineConfig({
     alias: {
       '@design-system': resolve(__dirname, '../../packages/design-system/src/styles'),
     },
-  },
-  css: {
-    preprocessorOptions: {},
   },
 });

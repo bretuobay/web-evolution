@@ -1,98 +1,77 @@
 /**
  * router.js
  *
- * A simple hash-based router for the application.
- * Before the History API was widely available, hash-based routing was the
- * standard for single-page applications. The part of the URL after the '#'
- * could be changed without causing a full page reload.
+ * A simple hash-based router for single-page applications.
+ * Before HTML5 History API, hash-based routing was the standard approach
+ * for SPAs to handle navigation without full page reloads.
  */
+
 (function(window) {
     'use strict';
 
+    var routes = {};
+    var currentHandler = null;
+
     var Router = {
-        // The routes object maps a URL hash to a handler function.
-        routes: {},
+        addRoute: function(pattern, handler) {
+            routes[pattern] = {
+                pattern: pattern,
+                handler: handler,
+                regex: patternToRegex(pattern)
+            };
+        },
 
-        /**
-         * The main entry point for the router.
-         * It listens for hash changes and calls the appropriate handler.
-         */
         init: function() {
-            // The 'hashchange' event is fired when the URL hash changes.
-            // We bind our route handler to this event.
-            $(window).on('hashchange', this.handleRouteChange.bind(this));
-
-            // We also need to handle the initial page load.
-            this.handleRouteChange();
+            $(window).on('hashchange', handleRouteChange);
+            handleRouteChange();
         },
 
-        /**
-         * Adds a new route to the router.
-         *
-         * @param {string} path The URL hash (e.g., '#/products').
-         * @param {function} handler The function to call when the route is matched.
-         */
-        addRoute: function(path, handler) {
-            this.routes[path] = handler;
-        },
-
-        /**
-         * This function is called when the URL hash changes.
-         * It parses the hash and calls the corresponding handler.
-         */
-        handleRouteChange: function() {
-            var hash = window.location.hash || '#/products';
-            var route = this.findMatchingRoute(hash);
-
-            if (route) {
-                // We found a matching route, so call its handler.
-                // The handler will be responsible for rendering the correct view.
-                route.handler(route.params);
-            } else {
-                // No matching route found, so render a "not found" page.
-                this.handleNotFound();
-            }
-        },
-
-        /**
-         * Finds a matching route for the given hash, supporting dynamic segments.
-         *
-         * @param {string} hash The current URL hash.
-         * @returns {object|null} The matched route object or null if no match.
-         */
-        findMatchingRoute: function(hash) {
-            for (var path in this.routes) {
-                var paramNames = [];
-                // Convert the route path to a regex to support dynamic segments (e.g., '#/products/:id').
-                var regexPath = path.replace(/:(\w+)/g, function(_, paramName) {
-                    paramNames.push(paramName);
-                    return '([\\w-]+)';
-                });
-
-                var regex = new RegExp('^' + regexPath + '$');
-                var match = hash.match(regex);
-
-                if (match) {
-                    var params = {};
-                    paramNames.forEach(function(name, index) {
-                        params[name] = match[index + 1];
-                    });
-                    return { handler: this.routes[path], params: params };
-                }
-            }
-            return null;
-        },
-
-
-        /**
-         * A simple "not found" handler.
-         */
-        handleNotFound: function() {
-            $('#main-content').html('<h2>404 - Page Not Found</h2>');
+        navigate: function(hash) {
+            window.location.hash = hash;
         }
     };
 
-    // Expose the Router to the global window object.
+    function patternToRegex(pattern) {
+        // Convert route patterns like '#/products/:id' to regex
+        var regexStr = pattern
+            .replace(/:[^\s/]+/g, '([^/]+)')
+            .replace(/\//g, '\\/');
+        return new RegExp('^' + regexStr + '$');
+    }
+
+    function extractParams(pattern, hash) {
+        var paramNames = (pattern.match(/:[^\s/]+/g) || []).map(function(p) {
+            return p.substring(1);
+        });
+        var route = routes[pattern];
+        var match = hash.match(route.regex);
+        if (!match) return {};
+
+        var params = {};
+        paramNames.forEach(function(name, index) {
+            params[name] = match[index + 1];
+        });
+        return params;
+    }
+
+    function handleRouteChange() {
+        var hash = window.location.hash || '#/products';
+
+        for (var pattern in routes) {
+            var route = routes[pattern];
+            if (route.regex.test(hash)) {
+                var params = extractParams(pattern, hash);
+                route.handler(params);
+                return;
+            }
+        }
+
+        // Default to products list if no route matches
+        if (routes['#/products']) {
+            Router.navigate('#/products');
+        }
+    }
+
     window.App = window.App || {};
     window.App.Router = Router;
 

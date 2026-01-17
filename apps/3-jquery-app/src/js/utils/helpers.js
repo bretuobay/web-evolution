@@ -1,40 +1,50 @@
 /**
  * helpers.js
  *
- * A collection of utility functions that can be used across the application.
- * In a larger application, this would be broken down into more specific files.
+ * Utility functions for the jQuery application.
+ * In the mid-2000s, developers often created their own utility libraries
+ * before tools like Lodash/Underscore became popular.
  */
+
 (function(window) {
     'use strict';
 
     var Helpers = {
         /**
-         * Sorts an array of objects by a specified key.
-         *
-         * @param {Array} data The array of objects to sort.
-         * @param {string} key The key to sort by.
-         * @param {string} order The sort order ('asc' or 'desc').
-         * @returns {Array} The sorted array.
+         * Formats a number as currency.
          */
-        sortData: function(data, key, order) {
-            return data.sort(function(a, b) {
+        formatCurrency: function(amount) {
+            return '$' + parseFloat(amount).toFixed(2);
+        },
+
+        /**
+         * Sorts an array of objects by a given key.
+         */
+        sortData: function(data, key, ascending) {
+            if (!Array.isArray(data)) return data;
+            return data.slice().sort(function(a, b) {
                 var valA = a[key];
                 var valB = b[key];
-
-                // Basic type checking for sorting
                 if (typeof valA === 'string') {
                     valA = valA.toLowerCase();
                     valB = valB.toLowerCase();
                 }
-
-                if (valA < valB) {
-                    return order === 'asc' ? -1 : 1;
-                }
-                if (valA > valB) {
-                    return order === 'asc' ? 1 : -1;
-                }
+                if (valA < valB) return ascending ? -1 : 1;
+                if (valA > valB) return ascending ? 1 : -1;
                 return 0;
             });
+        },
+
+        /**
+         * Escapes HTML to prevent XSS attacks.
+         */
+        escapeHtml: function(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
         }
     };
 

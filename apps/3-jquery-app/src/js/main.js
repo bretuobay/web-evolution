@@ -8,7 +8,7 @@
  * jQuery UI expects jQuery to be a global before it initializes.
  */
 
-// Import styles (these are safe as static imports)
+// Import styles
 import '@design-system/00s.css';
 import 'jquery-ui-dist/jquery-ui.min.css';
 

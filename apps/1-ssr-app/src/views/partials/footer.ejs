@@ -1,0 +1,12 @@
+<!-- The footer is the bottom part of our application layout. -->
+<!-- Like the header, it's rendered on every single page request. -->
+<footer role="contentinfo">
+    <hr>
+    <p>
+        &copy; 1999 The Web Evolution Project. All rights reserved.
+        <br>
+        This page was rendered on the server at <%= new Date().toISOString() %>.
+        This demonstrates the server-side nature of the application - the timestamp is generated
+        fresh from the server for each request, not in the client's browser.
+    </p>
+</footer>
