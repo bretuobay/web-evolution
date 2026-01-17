@@ -206,7 +206,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 - All endpoints return proper JSON responses
 - Error handling returns consistent error format
 - Rate limiting works
-- Server runs on configurable port (default 3001)
+- Server runs on configurable port (default 3002)
 
 ---
 

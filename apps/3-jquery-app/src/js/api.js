@@ -9,7 +9,7 @@
 (function (window) {
   "use strict";
 
-  var API_BASE_URL = "http://localhost:3001/api"; // API server runs on port 3001
+  var API_BASE_URL = "http://localhost:3002/api"; // API server runs on port 3002
 
   function showSpinner() {
     $("#loading-spinner").show();
