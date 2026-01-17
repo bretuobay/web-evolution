@@ -7,7 +7,7 @@ import { apiRateLimiter } from "./middleware/rateLimit";
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
-const PORT = Number(process.env.PORT ?? 3002);
+const PORT = Number(process.env.PORT ?? 3001);
 
 app.use(helmet());
 app.use(cors());

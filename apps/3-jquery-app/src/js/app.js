@@ -24,7 +24,10 @@ $(function() {
      * inventoryTable plugin to render them.
      */
     function renderProductList() {
-        api.getProducts().done(function(products) {
+        api.getProducts().done(function(response) {
+            // The API returns a paginated response: { data: [...], total, page, pageSize, totalPages }
+            var products = response.data || response;
+
             // We'll create a container for our table and append it to the main content.
             var $tableContainer = $('<div id="inventory-table-container"></div>');
             $mainContent.html('<h2>All Products</h2>').append($tableContainer);
