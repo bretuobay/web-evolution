@@ -4,14 +4,28 @@
   "private": true,
   "description": "Modern React SPA",
   "scripts": {
-    "build": "echo Building React SPA",
-    "dev": "echo Starting React dev server",
-    "lint": "echo Linting React SPA",
-    "test": "echo Testing React SPA"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@wees/design-system": "*",
+    "@tanstack/react-query": "^5.36.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@web-evolution/design-system": "0.1.0"
+    "react-router-dom": "^6.23.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.11"
   }
 }

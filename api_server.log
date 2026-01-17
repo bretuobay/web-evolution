@@ -1,23 +1,29 @@
 
-> @web-evolution/2-api-server@0.1.0 dev
-> tsx watch src/index.ts
+> @web-evolution/2-api-server@0.1.0 start
+> node dist/index.js
 
+node:internal/modules/cjs/loader:1386
+  throw err;
+  ^
 
-node:internal/modules/run_main:123
-    triggerUncaughtException(
-    ^
-Error: Cannot find package '/app/node_modules/@wees/database/dist/index.js' imported from /app/apps/2-api-server/src/routes/products.ts
-    at legacyMainResolve (node:internal/modules/esm/resolve:204:26)
-    at packageResolve (node:internal/modules/esm/resolve:777:12)
-    at moduleResolve (node:internal/modules/esm/resolve:853:18)
-    at defaultResolve (node:internal/modules/esm/resolve:983:11)
-    at nextResolve (node:internal/modules/esm/hooks:748:28)
-    at resolveBase (file:///app/node_modules/tsx/dist/esm/index.mjs?1768645614175:2:3744)
-    at resolveDirectory (file:///app/node_modules/tsx/dist/esm/index.mjs?1768645614175:2:4243)
-    at resolveTsPaths (file:///app/node_modules/tsx/dist/esm/index.mjs?1768645614175:2:4984)
-    at async resolve (file:///app/node_modules/tsx/dist/esm/index.mjs?1768645614175:2:5355)
-    at async nextResolve (node:internal/modules/esm/hooks:748:22) {
-  code: 'ERR_MODULE_NOT_FOUND'
+Error: Cannot find module '/app/apps/2-api-server/dist/index.js'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    at Function._load (node:internal/modules/cjs/loader:1192:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
 }
 
 Node.js v22.21.1
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /app/apps/2-api-server
+npm error workspace @web-evolution/2-api-server@0.1.0
+npm error location /app/apps/2-api-server
+npm error command failed
+npm error command sh -c node dist/index.js
