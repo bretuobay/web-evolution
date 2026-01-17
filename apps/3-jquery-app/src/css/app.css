@@ -1,0 +1,147 @@
+/* General Body Styles */
+body {
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Header and Navigation */
+header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    color: #0066CC;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #0066CC;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+/* Main Content Area */
+#main-content {
+    min-height: 300px;
+}
+
+
+/* Loading Spinner */
+#loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-size: 0.8em;
+    color: #888;
+}
+
+/* Basic Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: #e8e8e8;
+}
+
+/* Basic Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form select, form textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #0066CC;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+button:hover {
+    background-color: #0052A3;
+}
+
+.delete-btn {
+    background-color: #D32F2F;
+}
+
+.delete-btn:hover {
+    background-color: #B71C1C;
+}
