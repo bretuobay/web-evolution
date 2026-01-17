@@ -1,0 +1,55 @@
+<%# The main view for listing all products. It's the "index" page for the products resource. %>
+<%# This template will be rendered by the `getAllProducts` function in the `productController`. %>
+
+<h1>Products</h1>
+<p>Browse our amazing catalog of retro-tech products!</p>
+
+<div class="add-product-link">
+    <!-- A simple link to the 'new product' page. This is a classic GET request. -->
+    <a href="/products/new" class="button">Add New Product</a>
+</div>
+
+<%# This is where the product data, passed from the controller, is used. %>
+<% if (products && products.length > 0) { %>
+    <table class="interactive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%# We loop through each product and create a table row. %>
+            <% products.forEach(product => { %>
+                <tr>
+                    <td><%= product.name %></td>
+                    <td>$<%= product.price %></td>
+                    <td><a href="/categories/<%= product.categoryId %>"><%= product.categoryName %></a></td>
+                    <td>
+                        <!--
+                            Links for viewing, editing, and deleting a product.
+                            Note how each action corresponds to a specific route we defined.
+                        -->
+                        <a href="/products/<%= product.id %>">View</a> |
+                        <a href="/products/<%= product.id %>/edit">Edit</a> |
+                        <!--
+                            Deletion is a destructive action, so it's handled by a POST request.
+                            To trigger this from a link, we need a small form.
+                        -->
+                        <form action="/products/<%= product.id %>/delete" method="POST" style="display:inline;">
+                            <button type="submit" class="link-button" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <%# Render the pagination partial, passing the required data to it. %>
+    <%- include('../partials/pagination', { currentPage, totalPages }) %>
+
+<% } else { %>
+    <p>No products found. Why not <a href="/products/new">add one</a>?</p>
+<% } %>

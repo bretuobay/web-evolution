@@ -4,13 +4,14 @@
   "private": true,
   "description": "Server-rendered experience",
   "scripts": {
-    "build": "echo Building SSR experience",
-    "dev": "echo Starting SSR dev server",
+    "build": "tsc",
+    "dev": "tsc && node dist/index.js",
     "lint": "echo Linting SSR app",
     "test": "echo Testing SSR app"
   },
   "dependencies": {
     "express": "^4.19.3",
-    "@web-evolution/design-system": "0.1.0"
+    "@web-evolution/design-system": "0.1.0",
+    "@wees/database": "0.1.0"
   }
 }

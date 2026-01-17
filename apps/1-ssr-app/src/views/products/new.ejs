@@ -1,0 +1,61 @@
+<%# This view provides the form for creating a new product. %>
+<%# It's rendered by `getNewProductForm` and its submission is handled by `createProduct`. %>
+
+<h1>Add a New Product</h1>
+
+<!--
+  This is a quintessential HTML form. When the "Submit" button is pressed, the browser
+  will serialize the form data and send it as a POST request to the `/products` URL.
+  There is no JavaScript involved. The `body-parser` middleware on the server
+  is what will make this form data available in `req.body`.
+-->
+<form action="/products" method="POST">
+    <div class="field-row-stacked">
+        <label for="name">Product Name</label>
+        <input id="name" name="name" type="text" value="<%= locals.name || '' %>" required>
+    </div>
+    <!--
+      Server-side validation error display. The controller will re-render this form
+      if there are errors, passing back an `errors` object. We check for an error
+      related to this specific field and display it if it exists.
+    -->
+    <% if (locals.errors && errors.name) { %>
+        <div class="error-message"><%= errors.name.msg %></div>
+    <% } %>
+
+    <div class="field-row-stacked">
+        <label for="price">Price</label>
+        <input id="price" name="price" type="number" step="0.01" value="<%= locals.price || '' %>" required>
+    </div>
+    <% if (locals.errors && errors.price) { %>
+        <div class="error-message"><%= errors.price.msg %></div>
+    <% } %>
+
+    <div class="field-row-stacked">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="5" required><%= locals.description || '' %></textarea>
+    </div>
+    <% if (locals.errors && errors.description) { %>
+        <div class="error-message"><%= errors.description.msg %></div>
+    <% } %>
+
+    <div class="field-row-stacked">
+        <label for="categoryId">Category</label>
+        <select id="categoryId" name="categoryId" required>
+            <option value="">-- Please select a category --</option>
+            <% categories.forEach(category => { %>
+                <option value="<%= category.id %>" <%= (locals.categoryId == category.id) ? 'selected' : '' %>>
+                    <%= category.name %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+    <% if (locals.errors && errors.categoryId) { %>
+        <div class="error-message"><%= errors.categoryId.msg %></div>
+    <% } %>
+
+    <div class="form-actions">
+        <button type="submit">Create Product</button>
+        <a href="/products">Cancel</a>
+    </div>
+</form>

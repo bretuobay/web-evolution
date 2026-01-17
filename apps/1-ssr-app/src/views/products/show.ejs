@@ -1,0 +1,23 @@
+<%# This view displays the details of a single product. %>
+<%# It will be rendered by the `getProductById` controller function. %>
+
+<!--
+  This is a classic "detail" view. The URL contains the ID of the resource
+  (e.g., /products/123), and the server fetches and renders the data for that
+  specific resource.
+-->
+<div class="product-detail">
+    <h1><%= product.name %></h1>
+    <p><strong>Price:</strong> $<%= product.price %></p>
+    <p><strong>Description:</strong> <%= product.description %></p>
+    <p><strong>Category:</strong> <a href="/categories/<%= product.categoryId %>"><%= product.categoryName %></a></p>
+
+    <div class="actions">
+        <!--
+          Standard navigation in an SSR app. Each of these links will take the
+          user to a new page, triggering a full server request/response cycle.
+        -->
+        <a href="/products" class="button">Back to Product List</a>
+        <a href="/products/<%= product.id %>/edit" class="button">Edit this Product</a>
+    </div>
+</div>

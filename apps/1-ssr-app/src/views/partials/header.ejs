@@ -1,0 +1,28 @@
+<!-- In the SSR world, the header is a classic place for the main site navigation. -->
+<!-- Every time a new page is requested, this entire file is re-rendered on the server. -->
+<header role="banner">
+    <nav>
+        <ul class="tree-view">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/categories">Categories</a></li>
+        </ul>
+    </nav>
+    <hr>
+    <!--
+        Flash messages are a common pattern in SSR apps for user feedback.
+        A message is set in the session on one request (e.g., after a form POST)
+        and displayed on the next (e.g., the GET request after a redirect).
+        The custom middleware we created in index.ts makes `flash` available here.
+    -->
+    <% if (flash && flash.success) { %>
+        <div class="flash-success">
+            <p><strong>Success!</strong> <%= flash.success %></p>
+        </div>
+    <% } %>
+    <% if (flash && flash.error) { %>
+        <div class="flash-error">
+            <p><strong>Error!</strong> <%= flash.error %></p>
+        </div>
+    <% } %>
+</header>

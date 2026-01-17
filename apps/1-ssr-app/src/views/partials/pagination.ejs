@@ -1,0 +1,52 @@
+<!--
+  Server-side pagination is a fundamental concept from the early web.
+  Because server memory was precious and bandwidth was slow (dial-up!), you could never
+  send all the data at once. You'd fetch just one page of data from the database
+  and render only that.
+
+  Each link here is a standard <a> tag that triggers a full page reload, sending a
+  request to the server for the next page of results. The server then queries the
+  database with an offset and re-renders the entire page.
+-->
+<% if (totalPages > 1) { %>
+<nav aria-label="Pagination" class="pagination">
+  <ul class="pagination-list">
+    <!-- Link to the first page -->
+    <% if (currentPage > 1) { %>
+      <li><a href="?page=1">First</a></li>
+    <% } else { %>
+      <li class="disabled"><span>First</span></li>
+    <% } %>
+
+    <!-- Link to the previous page -->
+    <% if (currentPage > 1) { %>
+      <li><a href="?page=<%= currentPage - 1 %>">Prev</a></li>
+    <% } else { %>
+      <li class="disabled"><span>Prev</span></li>
+    <% } %>
+
+    <!-- Page numbers -->
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <% if (i === currentPage) { %>
+        <li class="active"><span><%= i %></span></li>
+      <% } else { %>
+        <li><a href="?page=<%= i %>"><%= i %></a></li>
+      <% } %>
+    <% } %>
+
+    <!-- Link to the next page -->
+    <% if (currentPage < totalPages) { %>
+      <li><a href="?page=<%= currentPage + 1 %>">Next</a></li>
+    <% } else { %>
+      <li class="disabled"><span>Next</span></li>
+    <% } %>
+
+    <!-- Link to the last page -->
+    <% if (currentPage < totalPages) { %>
+      <li><a href="?page=<%= totalPages %>">Last</a></li>
+    <% } else { %>
+      <li class="disabled"><span>Last</span></li>
+    <% } %>
+  </ul>
+</nav>
+<% } %>
