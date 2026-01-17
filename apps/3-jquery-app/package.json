@@ -1,0 +1,15 @@
+{
+  "name": "@web-evolution/3-jquery-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Legacy jQuery experience",
+  "scripts": {
+    "build": "echo Building jQuery app",
+    "dev": "echo Running jQuery dev server",
+    "lint": "echo Linting jQuery app",
+    "test": "echo Testing jQuery app"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}

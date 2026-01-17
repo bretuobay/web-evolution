@@ -1,0 +1,17 @@
+{
+  "name": "@web-evolution/4-react-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Modern React SPA",
+  "scripts": {
+    "build": "echo Building React SPA",
+    "dev": "echo Starting React dev server",
+    "lint": "echo Linting React SPA",
+    "test": "echo Testing React SPA"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@web-evolution/design-system": "0.1.0"
+  }
+}

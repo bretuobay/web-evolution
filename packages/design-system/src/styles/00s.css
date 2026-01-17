@@ -1,0 +1,28 @@
+.ds-era-00s {
+  background: radial-gradient(circle at top, #dbeafe 0%, #c7d2fe 60%, #a5b4fc 100%);
+  color: #09142b;
+  border-radius: var(--ds-radius);
+  padding: var(--ds-spacing);
+}
+
+.ds-era-00s__button {
+  background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border-radius: var(--ds-radius-sm);
+  padding: calc(var(--ds-spacing-sm) + 0.1rem) var(--ds-spacing);
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.35);
+  border: none;
+}
+
+.ds-era-00s__button:focus-visible,
+.ds-era-00s__button:hover {
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25);
+}
+
+.ds-era-00s__surface {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 60%);
+  border-radius: var(--ds-radius);
+  padding: var(--ds-spacing);
+  box-shadow: 0 15px 45px rgba(15, 23, 42, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}

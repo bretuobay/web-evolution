@@ -1,0 +1,16 @@
+{
+  "name": "@web-evolution/6-mvvm-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MVVM-inspired UI",
+  "scripts": {
+    "build": "echo Building MVVM app",
+    "dev": "echo Starting MVVM dev server",
+    "lint": "echo Linting MVVM app",
+    "test": "echo Testing MVVM app"
+  },
+  "dependencies": {
+    "vue": "^3.4.2",
+    "@web-evolution/design-system": "0.1.0"
+  }
+}

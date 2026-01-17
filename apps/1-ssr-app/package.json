@@ -1,0 +1,16 @@
+{
+  "name": "@web-evolution/1-ssr-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Server-rendered experience",
+  "scripts": {
+    "build": "echo Building SSR experience",
+    "dev": "echo Starting SSR dev server",
+    "lint": "echo Linting SSR app",
+    "test": "echo Testing SSR app"
+  },
+  "dependencies": {
+    "express": "^4.19.3",
+    "@web-evolution/design-system": "0.1.0"
+  }
+}

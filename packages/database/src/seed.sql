@@ -1,0 +1,30 @@
+INSERT OR IGNORE INTO categories (id, name, description, parent_id) VALUES
+  (1, 'Electronics', 'Personal electronics and gadgets', NULL),
+  (2, 'Apparel', 'Wearable gear and accessories', NULL),
+  (3, 'Home', 'Household accessories and decor', NULL),
+  (4, 'Outdoors', 'Outdoor recreation equipment', NULL),
+  (5, 'Books', 'Printed and digital books', NULL);
+
+INSERT OR IGNORE INTO products (name, description, price, quantity, category_id) VALUES
+  ('Smartwatch Pro', 'Rugged smartwatch with health sensors', 249.99, 48, 1),
+  ('Noise-cancelling Earbuds', 'Wireless earbuds with 40dB cancellation', 129.5, 120, 1),
+  ('Solar Charger', 'Portable 20W solar power bank', 59.0, 76, 4),
+  ('Waterproof Jacket', 'Breathable shell with taped seams', 189.0, 34, 2),
+  ('Thermal Base Layer', 'Moisture-wicking alpine layer', 78.0, 92, 2),
+  ('Organic Cotton Sheets', 'Soft sateen bedding set', 149.99, 24, 3),
+  ('Ceramic Coffee Set', 'Blue glazed pour-over kit', 64.0, 40, 3),
+  ('Mountain Bike Light Kit', 'High-lumen headlamp for riders', 45.5, 61, 4),
+  ('Biometric Door Lock', 'Fingerprint-access entry lock', 219.0, 16, 3),
+  ('Trail Running Shoes', 'Lightweight trail sneakers', 132.0, 68, 4),
+  ('Noise-dampening Headphones', 'Studio-grade over-ears', 312.0, 28, 1),
+  ('Canvas Duffel Bag', 'Weekend bag with shoe compartment', 99.0, 57, 2),
+  ('Smart LED Bulb', 'Wi-Fi controllable RGB bulb', 32.5, 204, 3),
+  ('Air Purifier Mini', 'Compact HEPA purifier', 118.0, 42, 3),
+  ('Climbing Harness', 'Adjustable harness with gear loops', 121.0, 20, 4),
+  ('Historical Fiction Bundle', 'Three novels in premium binding', 49.99, 82, 5),
+  ('Cookbook: Global Flavors', 'Travel-inspired recipes', 34.99, 60, 5),
+  ('Photography Fundamentals', 'Hands-on photo guide', 27.5, 45, 5),
+  ('Indoor Garden Kit', 'Self-watering herb planter', 74.0, 39, 3),
+  ('Merino Wool Beanie', 'Soft beanie with reflective thread', 35.0, 104, 2),
+  ('Wireless Keyboard', 'Low-profile mechanical keyboard', 99.99, 66, 1),
+  ('Adventure Map Set', 'Waterproof trail maps for 4 regions', 29.99, 75, 4);

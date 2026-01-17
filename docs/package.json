@@ -1,0 +1,14 @@
+{
+  "name": "@web-evolution/docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Project documentation",
+  "scripts": {
+    "build": "echo Building docs",
+    "lint": "echo Linting docs",
+    "test": "echo Testing docs"
+  },
+  "dependencies": {
+    "markdownlint-cli": "^0.36.0"
+  }
+}

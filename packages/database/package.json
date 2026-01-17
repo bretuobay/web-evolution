@@ -1,0 +1,25 @@
+{
+  "name": "@wees/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SQLite helpers and seed data for the Web Evolution platforms",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.6.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "rimraf": "^5.0.1",
+    "@types/node": "^22.15.3",
+    "typescript": "5.9.2"
+  }
+}

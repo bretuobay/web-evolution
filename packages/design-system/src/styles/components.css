@@ -1,0 +1,112 @@
+.ds-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-spacing-sm);
+  font-size: 1rem;
+}
+
+.ds-form label {
+  font-weight: 600;
+  color: var(--ds-text);
+}
+
+.ds-form input,
+.ds-form textarea,
+.ds-form select {
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-sm);
+  padding: var(--ds-spacing-sm);
+  font-size: inherit;
+  background: #fff;
+  color: var(--ds-text);
+}
+
+.ds-form input:focus-visible,
+.ds-form textarea:focus-visible,
+.ds-form select:focus-visible {
+  outline: 3px solid rgba(2, 132, 199, 0.5);
+}
+
+.ds-form button {
+  padding: var(--ds-spacing-sm) var(--ds-spacing);
+  border-radius: var(--ds-radius-sm);
+  border: none;
+  background: var(--ds-accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ds-form button:focus-visible,
+.ds-form button:hover {
+  background: var(--ds-accent-strong);
+}
+
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  color: var(--ds-text);
+}
+
+.ds-table th,
+.ds-table td {
+  border: 1px solid var(--ds-border);
+  padding: var(--ds-spacing-sm);
+  text-align: left;
+}
+
+.ds-table th {
+  background: #f1f5f9;
+  color: var(--ds-text);
+}
+
+.ds-card {
+  background: #fff;
+  border-radius: var(--ds-radius);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  padding: var(--ds-spacing);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.ds-nav {
+  display: flex;
+  gap: var(--ds-spacing-sm);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ds-nav a {
+  text-decoration: none;
+  padding: var(--ds-spacing-sm) var(--ds-spacing);
+  border-radius: var(--ds-radius-sm);
+  color: var(--ds-text);
+  border: 1px solid transparent;
+}
+
+.ds-nav a:focus-visible,
+.ds-nav a:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-strong);
+}
+
+.ds-pagination {
+  display: flex;
+  gap: var(--ds-spacing-sm);
+  align-items: center;
+}
+
+.ds-pagination button {
+  border: 1px solid var(--ds-border);
+  background: #fff;
+  color: var(--ds-text);
+  padding: var(--ds-spacing-xs) var(--ds-spacing-sm);
+  border-radius: var(--ds-radius-sm);
+}
+
+.ds-pagination button:focus-visible,
+.ds-pagination button:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-strong);
+}

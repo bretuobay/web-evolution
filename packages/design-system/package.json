@@ -1,0 +1,15 @@
+{
+  "name": "@wees/design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Era-aware styling system with accessible defaults",
+  "style": "src/index.css",
+  "files": ["src"],
+  "scripts": {
+    "build": "mkdir -p dist && cp -R src dist",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1"
+  }
+}

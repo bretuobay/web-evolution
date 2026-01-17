@@ -1,0 +1,30 @@
+.ds-era-10s {
+  background: #f8fafc;
+  color: #0f172a;
+  padding: var(--ds-spacing);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--ds-spacing);
+}
+
+.ds-era-10s__card {
+  background: #ffffff;
+  border-radius: var(--ds-radius);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  padding: var(--ds-spacing);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+}
+
+.ds-era-10s__title {
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.ds-era-10s__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--ds-spacing-xs) var(--ds-spacing-sm);
+  background: #1d4ed8;
+  color: #fff;
+  border-radius: var(--ds-radius-sm);
+}
