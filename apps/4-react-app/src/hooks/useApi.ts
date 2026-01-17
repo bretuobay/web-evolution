@@ -28,13 +28,27 @@ import { fetchApi } from '../utils/api';
  * need to know *how* to fetch data; they just need to know *what* data they need.
  */
 
+// API returns paginated responses for list endpoints
+interface PaginatedResponse<T> {
+  data: T[];
+  page: number;
+  totalPages: number;
+}
+
 // A generic hook for fetching data
 export const useApi = <T>(key: string, endpoint: string) => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery<T[], Error>({
     queryKey: [key],
-    queryFn: () => fetchApi(endpoint),
+    queryFn: async () => {
+      const response = await fetchApi(endpoint);
+      // Handle paginated response from API
+      if (response && typeof response === 'object' && 'data' in response) {
+        return (response as PaginatedResponse<T>).data;
+      }
+      return response;
+    },
   });
 
   const mutationOptions = {

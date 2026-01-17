@@ -18,7 +18,7 @@ interface TableProps<T> {
 
 const Table = <T extends { id: number }>({ columns, data, renderActions }: TableProps<T>) => {
   return (
-    <table className="table">
+    <table className="ds-table">
       <thead>
         <tr>
           {columns.map((col) => (

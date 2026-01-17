@@ -29,16 +29,37 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  *
  * This is a fundamental shift from the page-centric, imperative world of jQuery.
  */
-const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', ...props }) => {
-  const baseClasses = 'btn';
-  const variantClasses = {
-    primary: 'btn-primary',
-    secondary: 'btn-secondary',
-    danger: 'btn-danger',
+const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', style, ...props }) => {
+  // Use design system variables for consistent styling
+  const variantStyles: Record<string, React.CSSProperties> = {
+    primary: {
+      background: 'var(--ds-accent)',
+      color: '#fff',
+    },
+    secondary: {
+      background: '#f1f5f9',
+      color: 'var(--ds-text)',
+      border: '1px solid var(--ds-border)',
+    },
+    danger: {
+      background: 'var(--ds-error)',
+      color: '#fff',
+    },
   };
 
   return (
-    <button className={`${baseClasses} ${variantClasses[variant]}`} {...props}>
+    <button
+      style={{
+        padding: 'var(--ds-spacing-sm) var(--ds-spacing)',
+        borderRadius: 'var(--ds-radius-sm)',
+        border: 'none',
+        fontWeight: 600,
+        cursor: 'pointer',
+        ...variantStyles[variant],
+        ...style,
+      }}
+      {...props}
+    >
       {children}
     </button>
   );

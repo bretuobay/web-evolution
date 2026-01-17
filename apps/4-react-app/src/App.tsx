@@ -26,17 +26,17 @@ import NotFoundPage from './pages/NotFoundPage';
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="container">
-        <header>
-          <h1>Product Management SPA</h1>
+      <div className="ds-stack" style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--ds-spacing)' }}>
+        <header className="ds-card">
+          <h1 className="ds-era-10s__title">Product Management SPA</h1>
           <nav>
-            <ul>
+            <ul className="ds-nav">
               <li><Link to="/">Products</Link></li>
               <li><Link to="/categories">Categories</Link></li>
             </ul>
           </nav>
         </header>
-        <main>
+        <main className="ds-stack">
           {/*
             The <Routes> component is where the magic of client-side routing happens.
             React Router finds the first <Route> that matches the current URL and renders
@@ -51,7 +51,7 @@ const App: React.FC = () => {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
-        <footer>
+        <footer className="ds-card ds-text-center">
           <p>&copy; 2010s Product Management Inc.</p>
         </footer>
       </div>

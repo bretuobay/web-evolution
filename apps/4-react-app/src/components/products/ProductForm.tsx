@@ -79,20 +79,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onCancel }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
+    <form className="ds-form" onSubmit={handleSubmit}>
+      <div>
         <label>Name</label>
         <Input name="name" value={formData.name} onChange={handleChange} required />
       </div>
-      <div className="form-group">
+      <div>
         <label>Description</label>
         <Input name="description" value={formData.description} onChange={handleChange} required />
       </div>
-      <div className="form-group">
+      <div>
         <label>Price</label>
         <Input name="price" type="number" value={formData.price} onChange={handleChange} required />
       </div>
-      <div className="form-group">
+      <div>
         <label>Category</label>
         <select name="categoryId" value={formData.categoryId} onChange={handleChange} required>
           <option value="">Select a category</option>
@@ -105,8 +105,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit, onCancel }
           )}
         </select>
       </div>
-      <Button type="submit">Submit</Button>
-      <Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button>
+      <div className="ds-flex ds-gap-sm">
+        <Button type="submit">Submit</Button>
+        <Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button>
+      </div>
     </form>
   );
 };

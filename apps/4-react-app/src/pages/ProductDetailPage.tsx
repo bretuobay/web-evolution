@@ -25,8 +25,8 @@ const ProductDetailPage: React.FC = () => {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div>
-      <h2>{product.name}</h2>
+    <div className="ds-card ds-stack">
+      <h2 className="ds-era-10s__title">{product.name}</h2>
       {category && <CategoryBadge categoryName={category.name} />}
       <p>{product.description}</p>
       <p><strong>Price:</strong> ${product.price}</p>

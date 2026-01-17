@@ -41,9 +41,9 @@ const ProductsPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>Products</h2>
+    <div className="ds-card">
+      <div className="ds-flex" style={{ justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--ds-spacing)' }}>
+        <h2 className="ds-era-10s__title" style={{ margin: 0 }}>Products</h2>
         <Button onClick={handleOpenModal}>Add Product</Button>
       </div>
       <ProductList onEdit={handleEdit} onDelete={handleDelete} />
