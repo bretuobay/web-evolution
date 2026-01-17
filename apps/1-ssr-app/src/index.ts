@@ -26,7 +26,7 @@ const __dirname = path.dirname(__filename);
 
 // Create an instance of the Express application.
 const app = express();
-const port = 3001;
+const port = Number(process.env.PORT ?? 3001);
 
 // --- View Engine Configuration (The "V" in MVC) ---
 

@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "vue": "^3.4.2",
-    "@web-evolution/design-system": "0.1.0"
+    "@wees/design-system": "0.1.0"
   }
 }
