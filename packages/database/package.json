@@ -2,6 +2,7 @@
   "name": "@wees/database",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "SQLite helpers and seed data for the Web Evolution platforms",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
