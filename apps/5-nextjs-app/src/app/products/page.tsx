@@ -4,38 +4,40 @@ import ProductTable from '@/components/server/ProductTable';
 import SearchBar from '@/components/client/SearchBar';
 import Loading from './loading';
 
+export const dynamic = 'force-dynamic';
+
+type MaybePromise<T> = T | Promise<T>;
+
+type ProductsPageProps = {
+  searchParams?: MaybePromise<{ search?: string }>;
+};
+
 /**
- * Page: Product List
- *
- * This is a Server Component that composes other components.
- * It uses React's <Suspense> feature to handle the loading state.
- * The `ProductTable` is a Server Component that fetches data, so it can be
- * suspended. The `Loading` component is shown as a fallback while the data
- * is being fetched.
- *
- * This demonstrates Streaming SSR: the initial HTML is sent to the client
- * immediately, with a placeholder for the suspended component. When the data
- * is ready, the server streams the HTML for the `ProductTable` to the client.
+ * Products page that shows the search bar and table.
  */
-export default function ProductsPage({
-  searchParams,
-}: {
-  searchParams?: { search?: string };
-}) {
-  const search = searchParams?.search || '';
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+  const resolvedSearchParams = await searchParams;
+  const search = resolvedSearchParams?.search || '';
 
   return (
-    <div>
-      <h1>Our Products</h1>
-      <SearchBar />
+    <div className="ds-era-10s__card ds-stack ds-gap-lg">
+      <div
+        className="ds-flex"
+        style={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 'var(--ds-spacing)',
+        }}
+      >
+        <h1 className="ds-era-10s__title" style={{ margin: 0 }}>
+          Our Products
+        </h1>
+        <SearchBar />
+      </div>
       <Suspense fallback={<Loading />}>
         <ProductTable search={search} />
       </Suspense>
-      <p className="educational-comment">
-        This page is a Server Component. It uses React Suspense to stream the
-        product table. The initial page loads instantly with a loading skeleton,
-        and the table content is filled in as soon as the data is fetched on the server.
-      </p>
     </div>
   );
 }

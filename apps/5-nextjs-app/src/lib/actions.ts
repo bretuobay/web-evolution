@@ -3,7 +3,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { createProduct, updateProduct, deleteProduct, ProductInput } from '@wees/database/client';
+import { createProduct, updateProduct, deleteProduct, ProductInput } from '@wees/database';
 import { db } from './db';
 
 /**

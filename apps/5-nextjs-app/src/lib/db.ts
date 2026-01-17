@@ -1,5 +1,5 @@
 // src/lib/db.ts
-import { initializeDatabase } from '@wees/database/client';
+import { initializeDatabase } from '@wees/database';
 
 /**
  * Initializes and exports a singleton database client.

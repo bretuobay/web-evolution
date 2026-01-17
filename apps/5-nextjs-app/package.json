@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@web-evolution/design-system": "0.1.0",
+    "@wees/design-system": "0.1.0",
     "@wees/database": "0.1.0",
     "@wees/shared-types": "0.1.0",
     "next": "16.1.3",

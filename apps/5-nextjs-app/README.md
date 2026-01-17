@@ -1,6 +1,6 @@
 # Phase 6: The Modern Hybrid (Next.js App Router)
 
-Welcome to the final phase of our web evolution journey! This application is built with the Next.js App Router and represents the current state-of-the-art in web development, bringing together the best of server-side rendering and client-side interactivity.
+Welcome to the final phase of our web evolution journey! This application is built with the Next.js App Router and represents the current state-of-the-art in web development, bringing together the best of server-side rendering and client-side interactivity. It shares the same 2010s-era palette as `apps/4-react-app` by importing the `base`, `components`, and `10s` styles from `@wees/design-system`.
 
 ## The Renaissance of Server Rendering
 
@@ -56,5 +56,12 @@ This architecture is perfectly suited for edge computing. The server-rendering p
 - What are the tradeoffs of this new model compared to a pure client-side SPA?
 - How does the developer experience of co-locating data fetching with components change how you think about building features?
 - Is this the final form of web architecture, or is there another evolution on the horizon?
+
+## CRUD Flow
+
+- **Product list (`/products`)** renders `ProductTable`, which uses `listProducts` directly and streams via `<Suspense>`. The header now links to the `/products/new` form and still accepts `search` parameters supplied by `SearchBar`.
+- **Product detail (`/products/[id]`)** fetches the record with `getProductById`, shows a friendly hero using the same era styling, and exposes quick links to edit or return to the list.
+- **Create & edit (`/products/new` + `/products/[id]/edit`)** reuse `ProductForm`. The same server action `createOrUpdateProduct` backs both routes so creating and updating share validation, revalidation, and redirects.
+- **Delete** is handled by `DeleteButton`, which starts a transition and calls the `removeProduct` server action. The table re-renders after `revalidatePath('/products')` runs on the server.
 
 This application is a testament to the idea that the web is not a linear progression, but a cycle of ideas that are constantly being refined and improved upon. We've taken the best of the past and combined it with the innovations of the present to create a truly modern web experience.

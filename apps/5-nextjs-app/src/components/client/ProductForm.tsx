@@ -12,26 +12,18 @@ interface ProductFormProps {
 }
 
 /**
- * Client Component: ProductForm
- *
- * This component is marked with 'use client' because it uses React hooks (`useState`)
- * for managing form state. It's an interactive component that needs to run in the browser.
- *
- * However, the actual data mutation will be handled by a Server Action, which is
- * passed in as the `onSubmit` prop. This keeps the data logic on the server,
- * even though the form itself is a Client Component.
- *
- * This demonstrates the hybrid nature of the Next.js App Router.
+ * Reusable form for creating or updating a product.
  */
 const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit }) => {
   const [name, setName] = useState(product?.name || '');
   const [description, setDescription] = useState(product?.description || '');
   const [price, setPrice] = useState(product?.price || 0);
   const [quantity, setQuantity] = useState(product?.quantity || 0);
+  const productId = product?.id ? String(product.id) : '';
 
   return (
     <form action={onSubmit}>
-      <input type="hidden" name="id" value={product?.id} />
+      <input type="hidden" name="id" value={productId} />
       <div>
         <label htmlFor="name">Product Name</label>
         <input
@@ -76,11 +68,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSubmit }) => {
         />
       </div>
       <button type="submit">{product ? 'Update' : 'Create'}</button>
-      <p className="educational-comment">
-        This is a Client Component ('use client'). It manages its own state for the form inputs.
-        When the form is submitted, it calls a Server Action passed via props, keeping the
-        mutation logic on the server.
-      </p>
     </form>
   );
 };

@@ -2,13 +2,7 @@
 import React from 'react';
 
 /**
- * Component: Loading
- *
- * This is a special Next.js file. It's a loading UI that will be shown
- * as a fallback for a `<Suspense>` boundary.
- *
- * In this app, it's used in `products/page.tsx` while the `ProductTable`
- * is fetching data. This allows for Streaming SSR.
+ * Loading fallback shown while the product table loads.
  */
 export default function Loading() {
   return (

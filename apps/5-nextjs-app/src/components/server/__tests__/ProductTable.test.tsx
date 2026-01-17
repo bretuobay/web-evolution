@@ -2,10 +2,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ProductTable from '../ProductTable';
-import { listProducts } from '@wees/database/client';
+import { listProducts } from '@wees/database';
 import { db } from '@/lib/db';
 
-jest.mock('@wees/database/client', () => ({
+jest.mock('@wees/database', () => ({
   listProducts: jest.fn(),
 }));
 

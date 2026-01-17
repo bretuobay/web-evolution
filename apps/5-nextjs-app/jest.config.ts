@@ -15,7 +15,6 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   preset: 'ts-jest',
   moduleNameMapper: {
-    '^@wees/database/client$': '<rootDir>/../../packages/database/src/client.ts',
     '^@wees/database$': '<rootDir>/../../packages/database/src/index.ts',
     '^@wees/shared-types$': '<rootDir>/../../packages/shared-types/src/index.ts',
     '^@/(.*)$': '<rootDir>/src/$1',

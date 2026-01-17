@@ -3,14 +3,12 @@ import React from 'react';
 import CategoryNav from '@/components/server/CategoryNav';
 
 /**
- * Page: Categories
- *
- * A simple Server Component that displays the category navigation.
+ * Categories navigation page.
  */
 export default function CategoriesPage() {
   return (
-    <div>
-      <h1>All Categories</h1>
+    <div className="ds-era-10s__card ds-stack ds-gap-lg">
+      <h1 className="ds-era-10s__title">All Categories</h1>
       <CategoryNav />
     </div>
   );
