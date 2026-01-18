@@ -1,48 +1,64 @@
 <!-- apps/6-mvvm-app/src/views/ProductFormView.vue -->
 <template>
-  <div class="product-form-container">
-    <h2>Product Form</h2>
-    <form @submit.prevent="viewModel.saveProduct()">
-      <div class="form-group">
-        <label for="productName">Name</label>
-        <input
-          id="productName"
-          type="text"
-          v-model="viewModel.product.name"
-          required
-        />
+  <form class="ds-form form-panel" @submit.prevent="viewModel.saveProduct">
+    <div class="form-header">
+      <div>
+        <h2 class="ds-era-10s__subtitle">
+          {{ viewModel.formState.id ? 'Edit Product' : 'Add Product' }}
+        </h2>
+        <p class="ds-muted">
+          {{ viewModel.formState.id ? 'You are editing an existing product.' : 'Create a new product that will appear in the list.' }}
+        </p>
       </div>
-      <div class="form-group">
+      <p v-if="viewModel.formState.id" class="status">
+        ID: {{ viewModel.formState.id }}
+      </p>
+    </div>
+
+    <div>
+      <label for="productName">Name</label>
+      <input id="productName" type="text" v-model="viewModel.formState.name" required />
+    </div>
+
+    <div>
+      <label for="productDescription">Description</label>
+      <textarea id="productDescription" rows="3" v-model="viewModel.formState.description" required></textarea>
+    </div>
+
+    <div class="form-row">
+      <div>
         <label for="productPrice">Price</label>
-        <input
-          id="productPrice"
-          type="number"
-          v-model.number="viewModel.product.price"
-          required
-        />
+        <input id="productPrice" type="number" step="0.01" min="0" v-model.number="viewModel.formState.price" required />
       </div>
-      <div class="form-group">
-        <label for="productCategory">Category</label>
-        <select
-          id="productCategory"
-          v-model.number="viewModel.product.categoryId"
-          required
+      <div>
+        <label for="productQuantity">Quantity</label>
+        <input id="productQuantity" type="number" min="0" v-model.number="viewModel.formState.quantity" />
+      </div>
+    </div>
+
+    <div>
+      <label for="productCategory">Category</label>
+      <select id="productCategory" v-model="viewModel.formState.categoryId" required>
+        <option value="">Select a category</option>
+        <option
+          v-for="category in categoryViewModel.categories"
+          :key="category.id"
+          :value="category.id"
         >
-          <option
-            v-for="category in categoryViewModel.categories"
-            :key="category.id"
-            :value="category.id"
-          >
-            {{ category.name }}
-          </option>
-        </select>
-      </div>
-      <div class="form-actions">
-        <button type="submit">Save Product</button>
-        <button type="button" @click="viewModel.reset()">Reset</button>
-      </div>
-    </form>
-  </div>
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" :disabled="viewModel.isSubmitting">
+        {{ viewModel.isSubmitting ? 'Saving…' : 'Save Product' }}
+      </button>
+      <button type="button" class="secondary" @click="viewModel.reset()" :disabled="viewModel.isSubmitting">
+        Reset
+      </button>
+    </div>
+  </form>
 </template>
 
 <script lang="ts">
@@ -58,66 +74,69 @@ export default defineComponent({
       required: true,
     },
     categoryViewModel: {
-        type: Object as PropType<CategoryViewModel>,
-        required: true,
-    }
+      type: Object as PropType<CategoryViewModel>,
+      required: true,
+    },
   },
 });
 </script>
 
 <style scoped>
-.product-form-container {
-  padding: 1rem;
-  background-color: #eef;
-  border-radius: 8px;
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-spacing);
 }
 
-.form-group {
-  margin-bottom: 1rem;
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--ds-spacing);
 }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--ds-spacing);
 }
 
 .form-actions {
   display: flex;
+  gap: var(--ds-spacing-sm);
   justify-content: flex-end;
-  gap: 1rem;
 }
 
-button {
-  padding: 0.5rem 1rem;
+.form-actions button {
+  border-radius: var(--ds-radius-sm);
   border: none;
-  border-radius: 4px;
+  padding: var(--ds-spacing-sm) var(--ds-spacing);
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-button[type="submit"] {
-  background-color: #007bff;
-  color: white;
+.form-actions button.secondary {
+  background: #f1f5f9;
+  color: var(--ds-text);
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
+.form-actions button:not(.secondary) {
+  background: var(--ds-accent);
+  color: #fff;
 }
 
-button[type="button"] {
-  background-color: #6c757d;
-  color: white;
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-button[type="button"]:hover {
-  background-color: #5a6268;
+.status {
+  margin: 0;
+  color: var(--ds-muted);
+  font-size: 0.9rem;
+}
+
+textarea {
+  resize: vertical;
 }
 </style>

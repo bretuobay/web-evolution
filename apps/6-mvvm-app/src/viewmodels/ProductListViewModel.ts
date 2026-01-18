@@ -1,89 +1,100 @@
 // apps/6-mvvm-app/src/viewmodels/ProductListViewModel.ts
 
-/**
- * @file This file implements the ProductListViewModel.
- * This ViewModel is responsible for managing the list of products that are
- * displayed to the user. It demonstrates how ViewModels can collaborate and
- * share state, as it depends on the `CategoryViewModel` to filter products.
- */
-
 import { ref, computed } from 'vue';
-import { Product, sampleProducts } from '../models';
+import { Product } from '../models';
+import { fetchApi } from '../utils/api';
 import { CategoryViewModel } from './CategoryViewModel';
 
+type ProductsResponse = { data: Product[] } | Product[];
+
 /**
- * Manages the state and logic related to the product list.
- * This ViewModel showcases:
- *
- * - **Computed Properties**: `filteredProducts` is a computed property that
- *   reactively updates when the selected category changes. This is a powerful
- *   feature of MVVM for creating dynamic UIs.
- * - **ViewModel Collaboration**: It takes an instance of `CategoryViewModel`
- *   as a dependency, allowing it to react to changes in the category selection.
- *   This promotes a modular and maintainable architecture.
- * - **State Management**: It holds the list of all products and the currently
- *   selected product.
+ * Manages the state and logic related to the product list, including API interaction.
  */
 export class ProductListViewModel {
-  /**
-   * A reactive reference to the list of all products.
-   */
   private readonly _products = ref<Product[]>([]);
-
-  /**
-   * A reactive reference to the currently selected product.
-   */
   readonly selectedProduct = ref<Product | null>(null);
+  readonly isLoading = ref(false);
+  readonly isMutating = ref(false);
+  readonly errorMessage = ref<string | null>(null);
 
-  /**
-   * An instance of `CategoryViewModel` to observe category selections.
-   */
-  private readonly _categoryViewModel: CategoryViewModel;
-
-  constructor(categoryViewModel: CategoryViewModel) {
-    this._categoryViewModel = categoryViewModel;
-    // In a real application, this data would be fetched from an API.
-    this._products.value = sampleProducts;
+  constructor(private readonly _categoryViewModel: CategoryViewModel) {
+    this.loadProducts();
   }
 
-  /**
-   * A computed property that returns a list of products filtered by the
-   * currently selected category.
-   * This property automatically re-evaluates whenever the selected category
-   * in `CategoryViewModel` changes, or when the list of products changes.
-   */
-  get filteredProducts() {
-    return computed(() => {
-      const categoryId = this._categoryViewModel.selectedCategoryId.value;
-      if (categoryId === null) {
-        return this._products.value;
-      }
-      return this._products.value.filter(p => p.categoryId === categoryId);
-    });
+  get filteredProducts(): Product[] {
+    const categoryId = this._categoryViewModel.selectedCategoryId.value;
+    if (categoryId === null) {
+      return this._products.value;
+    }
+    return this._products.value.filter((product) => product.categoryId === categoryId);
   }
 
-  /**
-   * Action to select a product.
-   * This method is called from the View to update the ViewModel's state.
-   * @param product - The product to select.
-   */
+  private parseProductsResponse(response: ProductsResponse | unknown): Product[] {
+    if (Array.isArray(response)) {
+      return response;
+    }
+    if (response && typeof response === 'object' && 'data' in response && Array.isArray((response as ProductsResponse).data)) {
+      return (response as ProductsResponse).data;
+    }
+    return [];
+  }
+
+  async loadProducts() {
+    this.isLoading.value = true;
+    this.errorMessage.value = null;
+    try {
+      const response = await fetchApi('products');
+      this._products.value = this.parseProductsResponse(response);
+    } catch (error) {
+      this.errorMessage.value = error instanceof Error ? error.message : 'Unable to load products';
+    } finally {
+      this.isLoading.value = false;
+    }
+  }
+
   selectProduct(product: Product) {
-    this.selectedProduct.value = product;
+    this.selectedProduct.value = { ...product };
   }
 
-  /**
-   * Action to clear the product selection.
-   */
   clearProductSelection() {
     this.selectedProduct.value = null;
   }
 
-    /**
-   * Adds a new product to the list.
-   * @param product The product to add.
-   */
-    addProduct(product: Product) {
-        const newProduct = { ...product, id: Date.now() };
-        this._products.value.push(newProduct);
+  private async performMutation(action: () => Promise<void>, fallbackMessage: string) {
+    this.isMutating.value = true;
+    this.errorMessage.value = null;
+    try {
+      await action();
+      await this.loadProducts();
+    } catch (error) {
+      this.errorMessage.value = error instanceof Error ? error.message : fallbackMessage;
+      throw error;
+    } finally {
+      this.isMutating.value = false;
     }
+  }
+
+  async createProduct(product: Omit<Product, 'id'>) {
+    await this.performMutation(
+      () => fetchApi('products', { method: 'POST', body: JSON.stringify(product) }).then(() => undefined),
+      'Unable to create product',
+    );
+  }
+
+  async updateProduct(product: Product) {
+    await this.performMutation(
+      () => fetchApi(`products/${product.id}`, { method: 'PUT', body: JSON.stringify(product) }).then(() => undefined),
+      'Unable to update product',
+    );
+  }
+
+  async deleteProduct(id: number) {
+    if (this.selectedProduct.value?.id === id) {
+      this.clearProductSelection();
+    }
+    await this.performMutation(
+      () => fetchApi(`products/${id}`, { method: 'DELETE' }).then(() => undefined),
+      'Unable to delete product',
+    );
+  }
 }

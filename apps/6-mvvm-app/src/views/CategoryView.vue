@@ -1,20 +1,39 @@
 <!-- apps/6-mvvm-app/src/views/CategoryView.vue -->
 <template>
-  <div class="categories-container">
-    <h2>Categories</h2>
-    <ul>
+  <div class="category-panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="ds-era-10s__subtitle">Categories</h2>
+        <p class="ds-muted">Filter the product table by selecting a category.</p>
+      </div>
+      <button
+        type="button"
+        class="text-button"
+        @click="viewModel.selectCategory(null)"
+        :disabled="viewModel.selectedCategoryId === null"
+      >
+        Clear Selection
+      </button>
+    </div>
+
+    <p v-if="viewModel.isLoading" class="status">Loading categories…</p>
+    <p v-else-if="viewModel.errorMessage" class="status status-error">{{ viewModel.errorMessage }}</p>
+
+    <ul v-else class="category-list">
       <li
         v-for="category in viewModel.categories"
         :key="category.id"
-        :class="{ selected: category.id === viewModel.selectedCategoryId }"
+        class="category-chip"
+        :class="{ 'is-selected': category.id === viewModel.selectedCategoryId }"
         @click="viewModel.selectCategory(category.id)"
       >
         {{ category.name }}
       </li>
     </ul>
-    <button @click="viewModel.selectCategory(null)" class="clear-selection-button">
-      Clear Selection
-    </button>
+
+    <p v-if="!viewModel.isLoading && viewModel.categories.length === 0" class="status">
+      No categories available.
+    </p>
   </div>
 </template>
 
@@ -34,46 +53,69 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.categories-container {
-  padding: 1rem;
-  background-color: #f0f0f0;
-  border-radius: 8px;
+.category-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-spacing);
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--ds-spacing);
 }
 
-li {
-  padding: 0.5rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-li:hover {
-  background-color: #ddd;
-}
-
-li.selected {
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-}
-
-.clear-selection-button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #dc3545;
-  color: white;
+.text-button {
+  background: none;
   border: none;
-  border-radius: 4px;
+  color: var(--ds-accent);
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  padding: var(--ds-spacing-xs);
+  border-radius: var(--ds-radius-sm);
 }
 
-.clear-selection-button:hover {
-  background-color: #c82333;
+.text-button:disabled {
+  color: var(--ds-text);
+  cursor: not-allowed;
+}
+
+.category-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-spacing-sm);
+  padding: 0;
+  margin: 0;
+}
+
+.category-chip {
+  padding: var(--ds-spacing-sm) var(--ds-spacing);
+  border-radius: var(--ds-radius-sm);
+  border: 1px solid var(--ds-border);
+  background-color: #f1f5f9;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.category-chip:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-strong);
+}
+
+.category-chip.is-selected {
+  background-color: var(--ds-accent);
+  color: #fff;
+  border-color: transparent;
+}
+
+.status {
+  font-size: 0.95rem;
+  color: var(--ds-muted);
+}
+
+.status-error {
+  color: var(--ds-error);
 }
 </style>

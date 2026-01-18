@@ -25,7 +25,9 @@ export interface Category {
 export interface Product {
   id: number;
   name: string;
+  description: string;
   price: number;
+  quantity: number;
   categoryId: number;
 }
 
@@ -45,11 +47,11 @@ export const sampleCategories: Category[] = [
 * In a real-world application, this data would likely come from an API.
 */
 export const sampleProducts: Product[] = [
-    { id: 101, name: 'Wireless Mouse', price: 29.99, categoryId: 1 },
-    { id: 102, name: 'Bluetooth Keyboard', price: 79.99, categoryId: 1 },
-    { id: 103, name: 'The Pragmatic Programmer', price: 42.50, categoryId: 2 },
-    { id: 104, name: 'Clean Code', price: 35.00, categoryId: 2 },
-    { id: 105, name: 'Running Shoes', price: 89.99, categoryId: 3 },
-    { id: 106, name: 'T-Shirt', price: 19.99, categoryId: 3 },
-    { id: 107, name: 'Basketball', price: 24.99, categoryId: 4 },
+    { id: 101, name: 'Wireless Mouse', description: 'Smooth, precise, and battery-free.', price: 29.99, quantity: 42, categoryId: 1 },
+    { id: 102, name: 'Bluetooth Keyboard', description: 'Slim, compact keyboard with backlight.', price: 79.99, quantity: 18, categoryId: 1 },
+    { id: 103, name: 'The Pragmatic Programmer', description: 'Industry classic about craftsmanship.', price: 42.5, quantity: 7, categoryId: 2 },
+    { id: 104, name: 'Clean Code', description: 'Practical guide to writing cleaner software.', price: 35.0, quantity: 12, categoryId: 2 },
+    { id: 105, name: 'Running Shoes', description: 'Lightweight trainers built for tempo runs.', price: 89.99, quantity: 30, categoryId: 3 },
+    { id: 106, name: 'T-Shirt', description: 'Soft cotton tee with modern fit.', price: 19.99, quantity: 64, categoryId: 3 },
+    { id: 107, name: 'Basketball', description: 'Official size and grip for pickup games.', price: 24.99, quantity: 20, categoryId: 4 },
 ];
