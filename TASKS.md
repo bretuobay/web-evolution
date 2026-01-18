@@ -11,6 +11,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Set up the monorepo foundation with proper workspace configuration.
 
 **Steps**:
+
 1. Verify turbo.json exists and configure pipelines for `dev`, `build`, `lint`, and `test`
 2. Update root package.json with workspace definitions for `apps/*` and `packages/*`
 3. Create the following directory structure:
@@ -31,6 +32,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 4. Initialize each directory with a package.json containing appropriate name and dependencies
 
 **Acceptance Criteria**:
+
 - `npm install` runs without errors
 - `npx turbo build` recognizes all workspaces
 - Each package/app has a valid package.json
@@ -42,8 +44,10 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Define TypeScript interfaces used across all applications.
 
 **Steps**:
+
 1. Create `packages/shared-types/package.json` with name `@wees/shared-types`
 2. Create `packages/shared-types/src/index.ts` with the following interfaces:
+
    ```typescript
    export interface Product {
      id: number;
@@ -77,10 +81,12 @@ This document contains ordered tasks for building the Web Evolution Educational 
      details?: Record<string, string>;
    }
    ```
+
 3. Configure TypeScript with tsconfig.json (strict mode enabled)
 4. Add build script to compile to dist/
 
 **Acceptance Criteria**:
+
 - Package builds without TypeScript errors
 - Types are exportable via `@wees/shared-types`
 
@@ -91,9 +97,11 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Set up SQLite database with schema, seed data, and TypeScript client.
 
 **Steps**:
+
 1. Create `packages/database/package.json` with name `@wees/database`
 2. Install dependencies: `better-sqlite3`, `@types/better-sqlite3`
 3. Create `packages/database/src/schema.sql`:
+
    ```sql
    CREATE TABLE IF NOT EXISTS categories (
      id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -117,6 +125,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    CREATE INDEX idx_products_category ON products(category_id);
    CREATE INDEX idx_products_name ON products(name);
    ```
+
 4. Create `packages/database/src/seed.sql` with sample inventory data (at least 20 products across 5 categories)
 5. Create `packages/database/src/client.ts` with:
    - Database initialization function
@@ -126,6 +135,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 6. Export all functions and types from `packages/database/src/index.ts`
 
 **Acceptance Criteria**:
+
 - Database initializes and creates tables
 - Seed data loads correctly
 - All CRUD operations work
@@ -138,6 +148,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Build shared CSS system with era-specific styling.
 
 **Steps**:
+
 1. Create `packages/design-system/package.json` with name `@wees/design-system`
 2. Create base styles in `packages/design-system/src/styles/base.css`:
    - CSS reset
@@ -157,6 +168,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 5. Ensure all styles meet WCAG 2.1 AA color contrast requirements
 
 **Acceptance Criteria**:
+
 - All CSS files are valid
 - Color contrasts pass accessibility checks
 - Styles are importable from the package
@@ -170,6 +182,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Create the shared API backend that jQuery and React apps will consume.
 
 **Steps**:
+
 1. Initialize `apps/2-api-server` with Express.js and TypeScript
 2. Install dependencies: `express`, `cors`, `helmet`, `express-rate-limit`
 3. Create folder structure:
@@ -203,6 +216,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 8. Create OpenAPI/Swagger documentation in `docs/openapi.yaml`
 
 **Acceptance Criteria**:
+
 - All endpoints return proper JSON responses
 - Error handling returns consistent error format
 - Rate limiting works
@@ -215,6 +229,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Document the API server with educational content.
 
 **Steps**:
+
 1. Create `apps/2-api-server/README.md` following the educational README structure:
    - Historical context of REST APIs and their evolution from SOAP
    - Architectural overview with request/response flow diagram (ASCII)
@@ -224,6 +239,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Discussion questions about API design
 
 **Acceptance Criteria**:
+
 - README is comprehensive and educational
 - Includes working examples of API calls
 
@@ -236,6 +252,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Create a server-rendered application using Express and EJS templates.
 
 **Steps**:
+
 1. Initialize `apps/1-ssr-app` with Express.js and EJS
 2. Install dependencies: `express`, `ejs`, `express-session`, `body-parser`
 3. Create MVC folder structure:
@@ -280,6 +297,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 8. Add educational comments in code explaining the MVC pattern
 
 **Acceptance Criteria**:
+
 - All CRUD operations work via form submissions
 - No JavaScript required for core functionality
 - Pages render with 90s-era styling
@@ -292,6 +310,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Document the SSR application with historical context.
 
 **Steps**:
+
 1. Create `apps/1-ssr-app/README.md` covering:
    - Historical context: PHP, Perl CGI, Classic ASP era
    - How the web worked with dial-up and server constraints
@@ -301,6 +320,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Discussion questions about when SSR is still appropriate today
 
 **Acceptance Criteria**:
+
 - README provides genuine historical insight
 - Includes comparison with modern SSR renaissance
 
@@ -313,6 +333,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Create a single-page application using jQuery and AJAX.
 
 **Steps**:
+
 1. Initialize `apps/3-jquery-app` as a static site with build tooling
 2. Create folder structure:
    ```
@@ -342,6 +363,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 6. Add educational comments explaining jQuery patterns and AJAX
 
 **Acceptance Criteria**:
+
 - All CRUD operations work via AJAX
 - Hash-based navigation works
 - Custom jQuery plugin is functional
@@ -354,6 +376,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Document the jQuery application with Web 2.0 context.
 
 **Steps**:
+
 1. Create `apps/3-jquery-app/README.md` covering:
    - Historical context: Rise of AJAX, Gmail, Google Maps impact
    - How jQuery solved cross-browser compatibility nightmares
@@ -363,6 +386,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Discussion questions about jQuery's legacy and current use
 
 **Acceptance Criteria**:
+
 - README captures the revolutionary nature of AJAX
 - Honestly addresses jQuery's limitations
 
@@ -375,6 +399,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Create a modern React application with hooks and functional components.
 
 **Steps**:
+
 1. Initialize `apps/4-react-app` with Vite and React + TypeScript template
 2. Install dependencies: `react-router-dom`, `@tanstack/react-query` (optional for data fetching)
 3. Create folder structure:
@@ -421,6 +446,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 6. Add educational comments explaining React patterns
 
 **Acceptance Criteria**:
+
 - All CRUD operations work
 - Client-side routing is smooth
 - State management is centralized
@@ -433,6 +459,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Document the React application with component architecture context.
 
 **Steps**:
+
 1. Create `apps/4-react-app/README.md` covering:
    - Historical context: Rise of SPAs, component thinking, Facebook's scale
    - Virtual DOM explanation with diagrams
@@ -442,6 +469,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Discussion questions about React's trade-offs
 
 **Acceptance Criteria**:
+
 - README explains component-based thinking clearly
 - Includes comparison with jQuery approach
 
@@ -454,6 +482,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Create a modern hybrid application using Next.js App Router.
 
 **Steps**:
+
 1. Initialize `apps/5-nextjs-app` with `create-next-app` (App Router, TypeScript)
 2. Create folder structure:
    ```
@@ -492,10 +521,11 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Proper error boundaries
    - Image optimization with next/image
    - Metadata API for SEO
-5. Include modern.css styling from design-system
-6. Add educational comments contrasting with pure client-side React
+4. Include modern.css styling from design-system
+5. Add educational comments contrasting with pure client-side React
 
 **Acceptance Criteria**:
+
 - Mix of Server and Client Components is clear
 - Server Actions handle mutations
 - Streaming loading states work
@@ -508,6 +538,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Document the Next.js application explaining the SSR renaissance.
 
 **Steps**:
+
 1. Create `apps/5-nextjs-app/README.md` covering:
    - Historical context: Return to server rendering, but smarter
    - React Server Components explanation
@@ -518,6 +549,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Discussion questions about the future of web architecture
 
 **Acceptance Criteria**:
+
 - README explains the "why" of modern SSR
 - Shows the evolution from App 1 to App 5
 
@@ -530,6 +562,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Create an MVVM implementation demonstrating two-way data binding.
 
 **Steps**:
+
 1. Initialize `apps/6-mvvm-app` (can use Vue.js as MVVM example, or custom implementation)
 2. If using Vue.js, create folder structure:
    ```
@@ -558,10 +591,12 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Computed/derived properties
    - ViewModel mediating between View and Model
    - Observable collections for lists
+   - Consider using RxJS for data binding between view models and views
 5. Include appropriate era styling
 6. Add extensive comments explaining MVVM concepts
 
 **Acceptance Criteria**:
+
 - Two-way data binding is demonstrated
 - ViewModel pattern is clear
 - Computed properties work reactively
@@ -573,6 +608,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Document the MVVM application with pattern context.
 
 **Steps**:
+
 1. Create `apps/6-mvvm-app/README.md` covering:
    - Historical context: Knockout.js, Silverlight/WPF origins
    - MVVM vs MVC vs MVP comparison with diagrams
@@ -582,6 +618,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Discussion questions about binding complexity
 
 **Acceptance Criteria**:
+
 - README explains MVVM clearly
 - Pattern comparison is educational
 
@@ -594,6 +631,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Build the historical progression documentation.
 
 **Steps**:
+
 1. Create `docs/evolution-timeline.md` with:
    - ASCII/text timeline from 1990s to present
    - Key technology releases with dates
@@ -602,6 +640,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Internet adoption statistics
 
 **Acceptance Criteria**:
+
 - Timeline is accurate and educational
 - Connects to each app in the suite
 
@@ -612,6 +651,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Build feature and technology comparison across all apps.
 
 **Steps**:
+
 1. Create `docs/comparison-table.md` with tables comparing:
    - Technologies used
    - Bundle sizes (where applicable)
@@ -623,6 +663,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Testing approach
 
 **Acceptance Criteria**:
+
 - Comparisons are fair and educational
 - Trade-offs are clearly explained
 
@@ -633,6 +674,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Build instructor documentation for using the suite.
 
 **Steps**:
+
 1. Create `docs/teaching-guide.md` with:
    - Suggested course structure (12-week curriculum)
    - Learning objectives per app
@@ -642,6 +684,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - Prerequisites for students
 
 **Acceptance Criteria**:
+
 - Guide is practical for educators
 - Includes concrete exercises
 
@@ -652,6 +695,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Build comprehensive project README.
 
 **Steps**:
+
 1. Update root `README.md` with:
    - Project overview and purpose
    - Quick start instructions
@@ -661,6 +705,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
    - License information
 
 **Acceptance Criteria**:
+
 - README enables quick project understanding
 - Setup instructions work
 
@@ -673,6 +718,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Add tests for shared packages and business logic.
 
 **Steps**:
+
 1. Set up Vitest as test runner in root
 2. Add unit tests for `@wees/database` CRUD operations
 3. Add unit tests for API server endpoints
@@ -680,6 +726,7 @@ This document contains ordered tasks for building the Web Evolution Educational 
 5. Ensure all tests run via `npx turbo test`
 
 **Acceptance Criteria**:
+
 - Tests pass
 - Coverage for critical paths
 
@@ -690,12 +737,14 @@ This document contains ordered tasks for building the Web Evolution Educational 
 **Goal**: Ensure all apps meet WCAG 2.1 AA.
 
 **Steps**:
+
 1. Install axe-core for accessibility testing
 2. Add accessibility tests for each app
 3. Fix any accessibility violations found
 4. Document accessibility approach in each app
 
 **Acceptance Criteria**:
+
 - All apps pass axe-core automated checks
 - Manual accessibility review completed
 

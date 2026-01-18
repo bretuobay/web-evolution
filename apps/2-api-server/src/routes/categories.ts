@@ -6,7 +6,7 @@ import {
   getCategoryById,
   listCategories,
   listProducts,
-  updateCategory
+  updateCategory,
 } from "@wees/database";
 import { database } from "../db";
 import { ApiError } from "../middleware/errorHandler";
@@ -17,13 +17,13 @@ const router = Router();
 const createCategorySchema = {
   name: schemaUtils.requiredString("name"),
   description: schemaUtils.optionalString("description"),
-  parentId: schemaUtils.optionalNumber("parentId")
+  parentId: schemaUtils.optionalNumber("parentId"),
 };
 
 const updateCategorySchema = {
   name: schemaUtils.optionalString("name"),
   description: schemaUtils.optionalString("description"),
-  parentId: schemaUtils.optionalNumber("parentId")
+  parentId: schemaUtils.optionalNumber("parentId"),
 };
 
 router.get("/", (_req, res) => {
@@ -50,7 +50,8 @@ router.post("/", validateBody(createCategorySchema), (req, res, next) => {
     const payload = {
       name: req.body.name,
       description: req.body.description ?? "",
-      parentId: req.body.parentId === undefined ? null : Number(req.body.parentId)
+      parentId:
+        req.body.parentId === undefined ? null : Number(req.body.parentId),
     };
     const created = createCategory(database, payload);
     res.status(201).json(created);
@@ -64,8 +65,11 @@ router.put("/:id", validateBody(updateCategorySchema), (req, res, next) => {
     const id = Number(req.params.id);
     const payload: Record<string, unknown> = {};
     if (req.body.name !== undefined) payload.name = req.body.name;
-    if (req.body.description !== undefined) payload.description = req.body.description;
-    if (req.body.parentId !== undefined) payload.parentId = req.body.parentId === null ? null : Number(req.body.parentId);
+    if (req.body.description !== undefined)
+      payload.description = req.body.description;
+    if (req.body.parentId !== undefined)
+      payload.parentId =
+        req.body.parentId === null ? null : Number(req.body.parentId);
     const updated = updateCategory(database, id, payload as never);
     if (!updated) {
       throw new ApiError(404, "Category not found");
